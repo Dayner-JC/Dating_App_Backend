@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "dating-app-7a6f7"
-  }
+    "default": "dating-app-7a6f7",
+    "datingapp": "dating-app-7a6f7"
+  },
+  "targets": {},
+  "etags": {}
 }
