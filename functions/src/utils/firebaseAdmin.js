@@ -3,7 +3,7 @@ const serviceAccount = require("../../serviceAccountKey.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  storageBucket: "your-project-id.appspot.com",
+  storageBucket: "dating-app-7a6f7.appspot.com",
 });
 
 if (process.env.FIREBASE_EMULATOR_HOST) {
