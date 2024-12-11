@@ -13,6 +13,17 @@ router.post("/auth/register/phone", async (req, res) => {
   }
 
   try {
+    const userRef = admin.firestore().collection("users")
+        .where("phoneNumber", "==", phoneNumber);
+    const userSnapshot = await userRef.get();
+
+    if (!userSnapshot.empty) {
+      return res.status(400).send({
+        success: false,
+        message: "User already registered with this phone number.",
+      });
+    }
+
     const userDoc = admin.firestore().collection("users").doc();
     await userDoc.set({
       phoneNumber,

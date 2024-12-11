@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 app.post("/auth/register/phone", register.registerPhone);
-// app.post("/auth/register/google", register.registerGoogle);
+app.post("/auth/register/google", register.registerGoogle);
 // app.post("/auth/register/facebook", register.registerFacebook);
 // app.post("/auth/register/apple", register.registerApple);
 
