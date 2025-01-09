@@ -6,15 +6,15 @@ const {FieldValue} = require("firebase-admin/firestore");
 const router = express.Router();
 
 router.post("/auth/register/phone", async (req, res) => {
-  const {phoneNumber, email} = req.body;
+  const {completePhoneNumber, email} = req.body;
 
-  if (!phoneNumber) {
+  if (!completePhoneNumber) {
     return res.status(400).send("Missing phoneNumber.");
   }
 
   try {
     const userRef = admin.firestore().collection("users")
-        .where("phoneNumber", "==", phoneNumber);
+        .where("phoneNumber", "==", completePhoneNumber);
     const userSnapshot = await userRef.get();
 
     if (!userSnapshot.empty) {
@@ -27,7 +27,7 @@ router.post("/auth/register/phone", async (req, res) => {
     const userDoc = admin.firestore().collection("users").doc();
 
     const userData = {
-      phoneNumber,
+      completePhoneNumber,
       email,
       createdAt: FieldValue.serverTimestamp(),
       isProfileComplete: false,
