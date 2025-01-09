@@ -4,7 +4,7 @@ const admin = require("../../utils/firebaseAdmin");
 const router = express.Router();
 
 router.post("/auth/login/phone", async (req, res) => {
-  const {firebaseIdToken} = req.body;
+  const {firebaseIdToken, uid} = req.body;
 
   if (!firebaseIdToken) {
     return res.status(400).send({
@@ -14,8 +14,8 @@ router.post("/auth/login/phone", async (req, res) => {
   }
 
   try {
-    const decodedToken = await admin.auth().verifyIdToken(firebaseIdToken);
-    const uid = decodedToken.uid;
+    // const decodedToken = await admin.auth().verifyIdToken(firebaseIdToken);
+    // const uid = decodedToken.uid;
 
     const userRef = admin.firestore().collection("users").doc(uid);
     const userDoc = await userRef.get();
@@ -23,7 +23,7 @@ router.post("/auth/login/phone", async (req, res) => {
     if (!userDoc.exists) {
       return res.status(404).send({
         success: false,
-        message: "User does not exist.",
+        message: "User does not exist." + uid,
       });
     }
 

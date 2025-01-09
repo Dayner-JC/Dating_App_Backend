@@ -1,0 +1,43 @@
+/* eslint-disable new-cap */
+const express = require("express");
+const admin = require("../../utils/firebaseAdmin");
+const router = express.Router();
+
+router.post("/auth/login/google", async (req, res) => {
+  const {firebaseIdToken, uid} = req.body;
+
+  if (!firebaseIdToken || ! uid) {
+    return res.status(400).send({
+      success: false,
+      message: "ID token or UID not found.",
+    });
+  }
+
+  try {
+    // const decodedToken = await admin.auth().verifyIdToken(firebaseIdToken);
+    // const uid = decodedToken.uid;
+    const userRef = admin.firestore().collection("users").doc(uid);
+    const userDoc = await userRef.get();
+
+    if (!userDoc.exists) {
+      return res.status(404).send({
+        success: false,
+        message: "User does not exist.",
+      });
+    }
+
+    const user = userDoc.data();
+
+    res.status(200).send({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Error.",
+    });
+  }
+});
+
+module.exports = router;
