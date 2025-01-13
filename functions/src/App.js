@@ -12,6 +12,7 @@ app.post("/auth/register/facebook", register.registerFacebook);
 // app.post("/auth/register/apple", register.registerApple);
 
 app.post("/auth/login/phone", login.loginPhone);
+app.post("/auth/login/email", login.loginEmail);
 app.post("/auth/login/google", login.loginGoogle);
 // app.post("/auth/login/facebook", login.loginFacebook);
 // app.post("/auth/login/apple", login.loginApple);
