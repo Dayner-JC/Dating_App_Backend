@@ -34,7 +34,6 @@ router.post("/auth/login/phone", async (req, res) => {
       user,
     });
   } catch (error) {
-    console.error("Error during phone login:", error);
     res.status(500).send({
       success: false,
       message: error.message,

@@ -2,6 +2,7 @@ const express = require("express");
 const register = require("./auth/register");
 const login = require("./auth/login");
 const profile = require("./profile");
+const passwordReset = require("./auth/login/password-reset");
 
 const app = express();
 app.use(express.json());
@@ -10,6 +11,10 @@ app.post("/auth/register/phone", register.registerPhone);
 app.post("/auth/register/google", register.registerGoogle);
 app.post("/auth/register/facebook", register.registerFacebook);
 // app.post("/auth/register/apple", register.registerApple);
+
+app.post("/auth/login/password-reset/new-password", passwordReset.newPassword);
+app.post("/auth/login/password-reset/request", passwordReset.request);
+app.post("/auth/login/password-reset/verify", passwordReset.verify);
 
 app.post("/auth/login/phone", login.loginPhone);
 app.post("/auth/login/email", login.loginEmail);

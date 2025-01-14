@@ -6,7 +6,7 @@ const {FieldValue} = require("firebase-admin/firestore");
 const router = express.Router();
 
 router.post("/auth/register/phone", async (req, res) => {
-  const {completePhoneNumber, email} = req.body;
+  const {completePhoneNumber, email, uid} = req.body;
 
   if (!completePhoneNumber) {
     return res.status(400).send("Missing phoneNumber.");
@@ -24,7 +24,7 @@ router.post("/auth/register/phone", async (req, res) => {
       });
     }
 
-    const userDoc = admin.firestore().collection("users").doc();
+    const userDoc = admin.firestore().collection("users").doc(uid);
 
     const userData = {
       completePhoneNumber,
