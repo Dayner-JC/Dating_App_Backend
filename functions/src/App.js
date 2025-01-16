@@ -3,6 +3,7 @@ const register = require("./auth/register");
 const login = require("./auth/login");
 const profile = require("./profile");
 const passwordReset = require("./auth/login/password-reset");
+const TwoFa = require("./auth/2FA");
 
 const app = express();
 app.use(express.json());
@@ -23,5 +24,7 @@ app.post("/auth/login/google", login.loginGoogle);
 // app.post("/auth/login/apple", login.loginApple);
 
 app.post("/auth/profile/create", profile.createProfile);
+
+app.post("/auth/2fa/enable-sms", TwoFa.enableSms);
 
 module.exports = app;

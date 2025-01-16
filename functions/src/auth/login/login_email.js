@@ -15,6 +15,7 @@ router.post("/auth/login/email", async (req, res) => {
         .doc(uid).get();
 
     if (!userDoc.exists) {
+      console.log("UID: ", uid);
       return res.status(404)
           .json({success: false, message: "User not found"});
     }
