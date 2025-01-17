@@ -3,13 +3,13 @@ const serviceAccount = require("../../serviceAccountKey.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  storageBucket: "dating-app-7a6f7.appspot.com",
+  storageBucket: "gs://dating-app-7a6f7.firebasestorage.app/qrcodes",
 });
 
 if (process.env.FIREBASE_EMULATOR_HOST) {
   const {auth, firestore, storage} = admin;
 
-  const emulatorHost = "127.0.0.1";
+  const emulatorHost = "0.0.0.0";
   const authPort = 9099;
   const firestorePort = 8080;
   const storagePort = 9199;

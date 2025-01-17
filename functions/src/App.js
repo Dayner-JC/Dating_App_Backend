@@ -26,5 +26,7 @@ app.post("/auth/login/google", login.loginGoogle);
 app.post("/auth/profile/create", profile.createProfile);
 
 app.post("/auth/2fa/enable-sms", TwoFa.enableSms);
+app.post("/auth/2fa/app-generate", TwoFa.appGenerate);
+app.post("/auth/2fa/app-verify", TwoFa.appVerify);
 
 module.exports = app;

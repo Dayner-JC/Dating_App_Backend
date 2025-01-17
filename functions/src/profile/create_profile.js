@@ -40,6 +40,7 @@ router.post("/auth/profile/create", async (req, res) => {
           const file = admin.storage().bucket().file(filePath);
           await file.save(buffer, {
             contentType: mimeType,
+            public: true,
           });
 
           const emulatorHost = process.env.FIREBASE_STORAGE_EMULATOR_HOST ?
