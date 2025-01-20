@@ -3,7 +3,7 @@ const express = require("express");
 const admin = require("../../../utils/firebaseAdmin");
 const router = express.Router();
 
-router.post("/auth/login/password-reset/verify", async (req, res) => {
+router.post("/auth/login/email-verify/verify", async (req, res) => {
   const {uid, code} = req.body;
 
   if (!uid || !code) {
@@ -15,22 +15,22 @@ router.post("/auth/login/password-reset/verify", async (req, res) => {
 
   try {
     const doc = await admin.firestore()
-        .collection("passwordResetCodes").doc(uid).get();
+        .collection("emailCodesVerify").doc(uid).get();
 
     if (!doc.exists || doc.data().code !== code) {
       return res.status(400).send({
         success: false,
-        message: "Invalid code",
+        message: doc.data().code + " " + code,
       });
     }
 
     try {
       await admin.firestore()
-          .collection("passwordResetCodes").doc(uid).delete();
+          .collection("emailCodesVerify").doc(uid).delete();
     } catch (deleteError) {
       return res.status(500).send({
         success: false,
-        message: "Error deleting the reset code.",
+        message: "Error deleting the code.",
       });
     }
 

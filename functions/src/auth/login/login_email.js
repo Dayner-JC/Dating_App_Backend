@@ -3,14 +3,20 @@
 const express = require("express");
 const router = express.Router();
 const admin = require("firebase-admin");
+const nodemailer = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "daynercespedes4@gmail.com",
+    pass: "vaoclbdyuotfsyvo",
+  },
+});
 
 router.post("/auth/login/email", async (req, res) => {
-  const {token, uid} = req.body;
+  const {uid, email} = req.body;
 
   try {
-    // const decodedToken = await admin.auth().verifyIdToken(token);
-    // const uid = decodedToken.uid;
-
     const userDoc = await admin.firestore().collection("users")
         .doc(uid).get();
 
@@ -20,9 +26,24 @@ router.post("/auth/login/email", async (req, res) => {
           .json({success: false, message: "User not found"});
     }
 
-    const userData = userDoc.data();
-    console.log("Login Successful: ", userData);
-    res.status(200).json({success: true, user: userData});
+    const verificationCode =
+    Math.floor(100000 + Math.random() * 900000).toString();
+
+    await admin.firestore().collection("emailCodesVerify").doc(uid).set({
+      code: verificationCode,
+    });
+
+    await transporter.sendMail({
+      from: "daynercespedes4@gmail.com",
+      to: email,
+      subject: "Verify your email",
+      text: `Your verification code is: ${verificationCode}`,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Verification code sent to email.",
+    });
   } catch (error) {
     console.error("Token verification failed:", error);
     res.status(500)

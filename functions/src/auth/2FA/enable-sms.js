@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable new-cap */
 const express = require("express");
 const admin = require("../../utils/firebaseAdmin");
@@ -31,15 +32,12 @@ router.post("/auth/2fa/enable-sms", async (req, res) => {
       });
     }
 
-    await userDoc.update({
-      is2FASmsEnabled: true,
-      updatedAt: FieldValue.serverTimestamp(),
-    });
 
     return res.status(200).send({
       success: true,
       phoneNumber: userData.completePhoneNumber,
-      message: "2FA SMS successfully enabled.",
+      userId: uid,
+      message: "2FA SMS Process Started.",
     });
   } catch (error) {
     console.error("Error enabling 2FA:", error);

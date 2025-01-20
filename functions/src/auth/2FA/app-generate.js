@@ -20,7 +20,7 @@ router.post("/auth/2fa/app-generate", async (req, res) => {
 
     const userData = userDoc.data();
 
-    if (userData.is2FAEnabled) {
+    if (userData.is2FAAppEnabled) {
       return res.status(400).json({error: "2FA is already enabled for this user."});
     }
 
@@ -32,7 +32,6 @@ router.post("/auth/2fa/app-generate", async (req, res) => {
 
     await userRef.update({
       authAppSecret: secret.base32,
-      TwoFAAEnabled: true,
     });
 
     return res.status(200).json({
