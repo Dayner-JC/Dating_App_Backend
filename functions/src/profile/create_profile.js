@@ -6,7 +6,7 @@ const mime = require("mime-types");
 
 const router = express.Router();
 
-router.post("/auth/profile/create", async (req, res) => {
+router.post("/profile/create", async (req, res) => {
   console.log("Request body:", req.body);
 
   const {uid, name, birthday, gender, preference, height, intentions,
