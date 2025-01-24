@@ -31,6 +31,7 @@ router.post("/profile/request-data", async (req, res) => {
     return res.status(200).json({
       success: true,
       name: userData.name || "",
+      location: userData.location || "",
       description: userData.about || "",
       interests: userData.interests || "",
       birthday: userData.birthday || "",

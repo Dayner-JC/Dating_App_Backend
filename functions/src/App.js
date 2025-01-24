@@ -42,6 +42,8 @@ app.post("/profile/edit/edit-preference", editProfile.editPreference);
 app.post("/profile/edit/edit-intentions", editProfile.editIntentions);
 app.post("/profile/edit/edit-about", editProfile.editAbout);
 app.post("/profile/edit/edit-interests", editProfile.editInterests);
+app.post("/profile/edit/edit-location", editProfile.editLocation);
+app.post("/profile/edit/edit-photos", editProfile.editPhotos);
 
 // 2FA
 app.post("/auth/2fa/enable-sms", TwoFa.enableSms);

@@ -6,6 +6,8 @@ const editPreference = require("./edit_preference");
 const editIntentions = require("./edit_intentions");
 const editAbout = require("./edit_about");
 const editInterests = require("./edit_interests");
+const editLocation = require("./edit_location");
+const editPhotos = require("./edit_photos");
 
 module.exports = {
   editName,
@@ -16,4 +18,6 @@ module.exports = {
   editIntentions,
   editAbout,
   editInterests,
+  editLocation,
+  editPhotos,
 };
