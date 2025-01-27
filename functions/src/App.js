@@ -6,6 +6,7 @@ const passwordReset = require("./auth/login/password-reset");
 const TwoFa = require("./auth/2FA");
 const emailVerify = require("./auth/login/email-verify");
 const editProfile = require("./profile/edit");
+const deleteUser = require("./user");
 
 const app = express();
 app.use(express.json());
@@ -51,5 +52,8 @@ app.post("/auth/2fa/update-sms", TwoFa.updateSMS);
 app.post("/auth/2fa/app-generate", TwoFa.appGenerate);
 app.post("/auth/2fa/app-verify", TwoFa.appVerify);
 app.post("/auth/2fa/isEnable-verify", TwoFa.isEnableVerify);
+
+// Delete User
+app.post("/user/delete", deleteUser.deleteUser);
 
 module.exports = app;
