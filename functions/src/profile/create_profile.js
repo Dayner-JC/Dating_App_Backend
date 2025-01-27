@@ -26,7 +26,7 @@ router.post("/profile/create", async (req, res) => {
         const base64Data = photo.image;
         const buffer = Buffer.from(base64Data, "base64");
 
-        const filePath = `profilePictures/${uid}_${Date.now()}_${photo.fileName}`;
+        const filePath = `profilePictures/${uid}/${uid}_${Date.now()}_${photo.fileName}`;
         const file = admin.storage().bucket().file(filePath);
 
         await file.save(buffer, {
