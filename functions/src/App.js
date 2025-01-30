@@ -11,6 +11,12 @@ const deleteUser = require("./user");
 const app = express();
 app.use(express.json());
 
+const port = process.env.PORT || 4000;
+
+app.listen(port, () => {
+  console.log(`Servidor escuchando en el puerto ${port}`);
+});
+
 // Register
 app.post("/auth/register/phone", register.registerPhone);
 app.post("/auth/register/google", register.registerGoogle);
