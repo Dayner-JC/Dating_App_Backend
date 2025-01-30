@@ -6,9 +6,22 @@ const passwordReset = require("./auth/login/password-reset");
 const TwoFa = require("./auth/2FA");
 const emailVerify = require("./auth/login/email-verify");
 const editProfile = require("./profile/edit");
+const deleteUser = require("./user");
+const changeEmail = require("./profile/email");
 
 const app = express();
 app.use(express.json());
+
+const port = process.env.PORT || 4000;
+
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});
+
+// Change Email
+app.post("/profile/email/request-change", changeEmail.requestChange);
+app.post("/profile/email/verify-change", changeEmail.verifyChange);
+app.post("/profile/email/update-change", changeEmail.updateChange);
 
 // Register
 app.post("/auth/register/phone", register.registerPhone);
@@ -51,5 +64,8 @@ app.post("/auth/2fa/update-sms", TwoFa.updateSMS);
 app.post("/auth/2fa/app-generate", TwoFa.appGenerate);
 app.post("/auth/2fa/app-verify", TwoFa.appVerify);
 app.post("/auth/2fa/isEnable-verify", TwoFa.isEnableVerify);
+
+// Delete User
+app.post("/user/delete", deleteUser.deleteUser);
 
 module.exports = app;
