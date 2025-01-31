@@ -8,15 +8,19 @@ const emailVerify = require("./auth/login/email-verify");
 const editProfile = require("./profile/edit");
 const deleteUser = require("./user");
 const changeEmail = require("./profile/email");
+const updatePhone = require("./profile/phone");
 
 const app = express();
 app.use(express.json());
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT;
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
+// Change Phone
+app.post("/profile/phone/update", updatePhone.updatePhone);
 
 // Change Email
 app.post("/profile/email/request-change", changeEmail.requestChange);

@@ -6,7 +6,6 @@ admin.initializeApp({
   storageBucket: "gs://dating-app-7a6f7.firebasestorage.app/",
 });
 
-
 if (process.env.FIREBASE_EMULATOR_HOST) {
   const {auth, firestore, storage} = admin;
 
