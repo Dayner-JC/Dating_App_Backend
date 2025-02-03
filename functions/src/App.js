@@ -9,15 +9,23 @@ const editProfile = require("./profile/edit");
 const deleteUser = require("./user");
 const changeEmail = require("./profile/email");
 const updatePhone = require("./profile/phone");
+const getHelpCenter = require("./help_center");
+const getPhotos= require("./profile/photos");
 
 const app = express();
 app.use(express.json());
 
-const port = process.env.PORT;
+// const port = process.env.PORT;
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server listening on port ${port}`);
+// });
+
+// Photos
+app.post("/profile/photos/get", getPhotos.getPhotos);
+
+// Help Center
+app.get("/help_center/get", getHelpCenter.getHelpCenter);
 
 // Change Phone
 app.post("/profile/phone/update", updatePhone.updatePhone);
