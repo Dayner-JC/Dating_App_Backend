@@ -1,9 +1,11 @@
+/* eslint-disable max-len */
 /* eslint-disable new-cap */
 const express = require("express");
-const admin = require("firebase-admin");
+const admin = require("../utils/firebaseAdmin");
+
 const router = express.Router();
 
-router.post("/profile/photos/get", async (req, res) => {
+router.post("/profile/get-name", async (req, res) => {
   const {userId} = req.body;
 
   if (!userId) {
@@ -14,11 +16,8 @@ router.post("/profile/photos/get", async (req, res) => {
   }
 
   try {
-    const userDoc = await admin
-        .firestore()
-        .collection("users")
-        .doc(userId)
-        .get();
+    const userRef = admin.firestore().collection("users").doc(userId);
+    const userDoc = await userRef.get();
 
     if (!userDoc.exists) {
       return res.status(404).json({
@@ -28,17 +27,16 @@ router.post("/profile/photos/get", async (req, res) => {
     }
 
     const userData = userDoc.data();
-    const photos = userData.photos || [];
 
     return res.status(200).json({
       success: true,
-      images: photos,
+      name: userData.name || "",
     });
   } catch (error) {
-    console.error("Error fetching user photos:", error);
+    console.error("Error fetching user name:", error);
     res.status(500).json({
       success: false,
-      error: "Failed to fetch user photos.",
+      error: "Failed to fetch user name.",
     });
   }
 });

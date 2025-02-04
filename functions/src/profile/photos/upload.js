@@ -2,10 +2,9 @@
 /* eslint-disable new-cap */
 const express = require("express");
 const admin = require("../../utils/firebaseAdmin");
-
 const router = express.Router();
 
-router.post("/profile/edit/edit-photos", async (req, res) => {
+router.post("/profile/photos/upload", async (req, res) => {
   const {userId, photos} = req.body;
 
   if (!userId || !photos) {
@@ -23,7 +22,6 @@ router.post("/profile/edit/edit-photos", async (req, res) => {
       if (photo && photo.image && photo.fileName && photo.type) {
         const base64Data = photo.image;
         const buffer = Buffer.from(base64Data, "base64");
-
         const filePath = `profilePictures/${userId}/${userId}_${Date.now()}_${photo.fileName}`;
         const file = admin.storage().bucket().file(filePath);
 
@@ -32,25 +30,29 @@ router.post("/profile/edit/edit-photos", async (req, res) => {
         });
 
         const emulatorHost = process.env.FIREBASE_STORAGE_EMULATOR_HOST ?
-              `http://10.0.2.2:9199` :
-              "https://storage.googleapis.com";
-
-        const photoURL = `${emulatorHost}/v0/b/${file.bucket.name}/o/${encodeURIComponent(filePath)}?alt=media`;
+          `http://10.0.2.2:9199` :
+          "https://storage.googleapis.com";
+        const photoURL = `${emulatorHost}/v0/b/${file.bucket.name}/o/${encodeURIComponent(
+            filePath,
+        )}?alt=media`;
         photoURLs.push(photoURL);
       }
     }
+
     const userRef = admin.firestore().collection("users").doc(userId);
-    await userRef.update({photos: photoURLs});
+    await userRef.set(
+        {photos: photoURLs},
+    );
 
     return res.status(200).json({
       success: true,
-      message: "Photos updated successfully.",
+      message: "Photos uploaded successfully.",
     });
   } catch (error) {
-    console.error("Error updating photos:", error);
+    console.error("Error uploading photos:", error);
     res.status(500).json({
       success: false,
-      error: "Failed to update photos.",
+      error: "Failed to upload photos.",
     });
   }
 });

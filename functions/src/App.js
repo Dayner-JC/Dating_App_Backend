@@ -10,19 +10,25 @@ const deleteUser = require("./user");
 const changeEmail = require("./profile/email");
 const updatePhone = require("./profile/phone");
 const getHelpCenter = require("./help_center");
-const getPhotos= require("./profile/photos");
+const Photos= require("./profile/photos");
+const getUsers = require("./get_users");
 
 const app = express();
 app.use(express.json());
 
- const port = process.env.PORT;
+// const port = process.env.PORT;
 
- app.listen(port, () => {
-   console.log(`Server listening on port ${port}`);
- });
+// app.listen(port, () => {
+//   console.log(`Server listening on port ${port}`);
+// });
+
+// Get Users
+app.post("/get_users/get", getUsers.getUsers);
+app.post("/profile/get-name", profile.getName);
 
 // Photos
-app.post("/profile/photos/get", getPhotos.getPhotos);
+app.post("/profile/photos/get", Photos.getPhotos);
+app.post("/profile/photos/upload", Photos.uploadPhotos);
 
 // Help Center
 app.get("/help_center/get", getHelpCenter.getHelpCenter);

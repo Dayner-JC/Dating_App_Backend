@@ -21,7 +21,7 @@ if (process.env.FIREBASE_EMULATOR_HOST) {
     ssl: false,
   });
 
-  storage().useEmulator(emulatorHost, storagePort);
+  storage().useEmulator("10.0.2.2", storagePort);
 }
 
 module.exports = admin;
