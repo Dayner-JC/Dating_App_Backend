@@ -15,11 +15,11 @@ const getPhotos= require("./profile/photos");
 const app = express();
 app.use(express.json());
 
-// const port = process.env.PORT;
+ const port = process.env.PORT;
 
-// app.listen(port, () => {
-//   console.log(`Server listening on port ${port}`);
-// });
+ app.listen(port, () => {
+   console.log(`Server listening on port ${port}`);
+ });
 
 // Photos
 app.post("/profile/photos/get", getPhotos.getPhotos);
