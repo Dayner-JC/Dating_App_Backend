@@ -4,7 +4,7 @@ const express = require("express");
 const router = express.Router();
 const admin = require("../../utils/firebaseAdmin");
 
-router.post("/profile/phone/update-change", async (req, res) => {
+router.post("/profile/phone/update", async (req, res) => {
   const {uid, completePhoneNumber} = req.body;
 
   try {
