@@ -7,8 +7,6 @@ const {FieldValue} = require("firebase-admin/firestore");
 router.post("/user/privacy-settings/put", async (req, res) => {
   const {uid, privacySettings} = req.body;
 
-  console.log("data: ", privacySettings);
-
   if (!uid) {
     return res
         .status(400)

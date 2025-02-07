@@ -34,6 +34,7 @@ app.post("/profile/get-name", profile.getName);
 // Photos
 app.post("/profile/photos/get", Photos.getPhotos);
 app.post("/profile/photos/upload", Photos.uploadPhotos);
+app.post("/profile/photos/upload-profile-picture", Photos.uploadProfilePicture);
 
 // Help Center
 app.get("/help_center/get", getHelpCenter.getHelpCenter);
