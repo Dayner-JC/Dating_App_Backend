@@ -26,6 +26,11 @@ router.post("/profile/create", async (req, res) => {
       location,
       about,
       interests,
+      datingPreferences: {
+        maxDistance: 5,
+        ageRange: [18, 30],
+        photoRangeIndex: [4, 6],
+      },
       privacySettings: {
         profileVisibility: {
           Visible_to_all_users: true,

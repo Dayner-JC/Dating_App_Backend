@@ -13,6 +13,7 @@ const getHelpCenter = require("./help_center");
 const Photos= require("./profile/photos");
 const getUsers = require("./get_users");
 const privacySettings = require("./user/privacy_settings");
+const datingPreferences = require("./profile/dating_preferences");
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,10 @@ app.use(express.json());
 // app.listen(port, () => {
 //   console.log(`Server listening on port ${port}`);
 // });
+
+// Dating Preferences
+app.post("/profile/dating_preferences/get", datingPreferences.get);
+app.post("/profile/dating_preferences/update", datingPreferences.update);
 
 // Privacy settings
 app.post("/user/privacy-settings/get", privacySettings.getPrivacySettings);
