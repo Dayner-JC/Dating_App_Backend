@@ -31,6 +31,10 @@ router.post("/profile/create", async (req, res) => {
         ageRange: [18, 30],
         photoRangeIndex: [4, 6],
       },
+      reactions: {
+        likes: {},
+        dislikes: {},
+      },
       privacySettings: {
         profileVisibility: {
           Visible_to_all_users: true,
