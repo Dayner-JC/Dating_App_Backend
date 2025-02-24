@@ -32,8 +32,10 @@ router.post("/profile/create", async (req, res) => {
         photoRangeIndex: [4, 6],
       },
       reactions: {
-        likes: {},
-        dislikes: {},
+        peopleYouLike: {},
+        peopleYouDislike: {},
+        peopleWhoLikeYou: {},
+        peopleWhoDislikeYou: {},
       },
       privacySettings: {
         profileVisibility: {
