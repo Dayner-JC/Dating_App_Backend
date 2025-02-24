@@ -1,9 +1,10 @@
 /* eslint-disable new-cap */
 /* eslint-disable max-len */
 const express = require("express");
-const router = express.Router();
 const admin = require("../../utils/firebaseAdmin");
 const {FieldValue} = require("firebase-admin/firestore");
+const {createNotification} = require("../../profile/reactions/notifications");
+const router = express.Router();
 
 router.post("/profile/reactions/like", async (req, res) => {
   const {userId, targetUserId} = req.body;
@@ -25,7 +26,6 @@ router.post("/profile/reactions/like", async (req, res) => {
     if (existingLike) {
       return res.status(400).json({success: false, message: "You have already liked this user."});
     }
-
     if (existingDislike) {
       return res.status(400).json({success: false, message: "You have already disliked this user. You cannot like them now."});
     }
@@ -43,6 +43,17 @@ router.post("/profile/reactions/like", async (req, res) => {
         time: timestamp,
       },
     });
+
+    const senderProfile = await admin.firestore().collection("users").doc(userId).get();
+    const senderData = senderProfile.data();
+    const senderName = (senderData && senderData.name) || "Someone";
+
+    const receiverProfile = await admin.firestore().collection("users").doc(targetUserId).get();
+    const receiverData = receiverProfile.data();
+    const receiverDeviceToken = (receiverData && receiverData.deviceToken) || null;
+
+    const notificationMessage = `${senderName} has liked you.`;
+    await createNotification(targetUserId, notificationMessage, "like", receiverDeviceToken);
 
     return res.status(200).json({success: true, message: "Like registered successfully."});
   } catch (error) {
