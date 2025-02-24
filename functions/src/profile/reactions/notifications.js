@@ -1,4 +1,4 @@
-const admin = require("../utils/firebaseAdmin");
+const admin = require("../../utils/firebaseAdmin");
 const { FieldValue } = require("firebase-admin/firestore");
 
 /**
