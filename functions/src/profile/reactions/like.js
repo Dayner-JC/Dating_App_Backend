@@ -2,18 +2,18 @@ const express = require("express");
 const router = expressRouter();
 const admin = require("../../utils/firebaseAdmin");
 const { FieldValue } = require("firebase-admin/firestore");
-const { createNotification } = require("../../utils/notifications"); // Importar la función de notificaciones
+const { createNotification } = require("../../utils/notifications"); 
 
 router.post("/profile/reactions/like", async (req, res) => {
   const { userId, targetUserId } = req.body;
 
-  // Validar que todos los campos requeridos estén presentes
+  
   if (!userId || !targetUserId) {
     return res.status(400).json({ success: false, message: "Missing parameters." });
   }
 
   try {
-    // Registrar el "like" en Firestore
+
     const reactionId = admin.firestore().collection("_").doc().id;
     await admin
       .firestore()
@@ -26,15 +26,15 @@ router.post("/profile/reactions/like", async (req, res) => {
         },
       });
 
-    // Obtener el perfil del usuario que dio like
+
     const senderProfile = await admin.firestore().collection("users").doc(userId).get();
     const senderName = senderProfile.data()?.name || "Alguien";
 
-    // Obtener el perfil del receptor y su deviceToken
+
     const receiverProfile = await admin.firestore().collection("users").doc(targetUserId).get();
     const receiverDeviceToken = receiverProfile.data()?.deviceToken;
 
-    // Crear una notificación para el receptor
+
     const notificationMessage = `${senderName} te ha dado like.`;
     await createNotification(targetUserId, notificationMessage, "like", receiverDeviceToken);
 
