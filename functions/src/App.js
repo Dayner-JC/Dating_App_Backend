@@ -14,7 +14,7 @@ const Photos= require("./profile/photos");
 const getUsers = require("./get_users");
 const privacySettings = require("./user/privacy_settings");
 const datingPreferences = require("./profile/dating_preferences");
-const reactios = require("./profile/reactions");
+const reactions = require("./profile/reactions");
 
 const app = express();
 app.use(express.json());
@@ -26,8 +26,11 @@ app.use(express.json());
 // });
 
 // Reactions
-app.post("/profile/reactions/like", reactios.like);
-app.post("/profile/reactions/dislike", reactios.dislike);
+app.post("/profile/reactions/like", reactions.like);
+app.post("/profile/reactions/dislike", reactions.dislike);
+app.post("/profile/reactions/people-you-like", reactions.peopleYouLike);
+app.post("/profile/reactions/people-who-like-you", reactions.peopleWhoLikeYou);
+app.post("/profile/reactions/matches", reactions.matches);
 
 // Dating Preferences
 app.post("/profile/dating_preferences/get", datingPreferences.get);

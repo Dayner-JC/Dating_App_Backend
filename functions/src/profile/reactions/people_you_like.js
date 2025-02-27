@@ -4,8 +4,8 @@ const express = require("express");
 const admin = require("../../utils/firebaseAdmin");
 const router = express.Router();
 
-router.get("/profile/reactions/people-you-like", async (req, res) => {
-  const {userId} = req.query;
+router.post("/profile/reactions/people-you-like", async (req, res) => {
+  const {userId} = req.body;
 
   if (!userId) {
     return res.status(400).json({success: false, message: "Missing userId parameter."});
@@ -19,7 +19,6 @@ router.get("/profile/reactions/people-you-like", async (req, res) => {
 
     const userData = userDoc.data();
     const peopleYouLike = (userData.reactions && userData.reactions.peopleYouLike) || {};
-
     const likedUserIds = Object.keys(peopleYouLike);
 
     const likedUsers = [];

@@ -37,6 +37,7 @@ router.post("/profile/create", async (req, res) => {
         peopleWhoLikeYou: {},
         peopleWhoDislikeYou: {},
       },
+      matches: [],
       privacySettings: {
         profileVisibility: {
           Visible_to_all_users: true,
