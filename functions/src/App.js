@@ -42,7 +42,9 @@ app.post("/user/privacy-settings/put", privacySettings.putPrivacySettings);
 
 // Get Users
 app.post("/get_users/get", getUsers.getUsers);
+app.post("/get_users/get-suggestions", getUsers.getSuggestions);
 app.post("/profile/get-name", profile.getName);
+app.post("/profile/create-mock-users", profile.createMockUsers);
 
 // Photos
 app.post("/profile/photos/get", Photos.getPhotos);
