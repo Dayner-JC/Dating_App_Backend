@@ -32,6 +32,7 @@ router.post("/profile/request-data", async (req, res) => {
       success: true,
       name: userData.name || "",
       location: userData.location.address || "",
+      coordinates: userData.location.coordinates || null,
       description: userData.about || "",
       interests: userData.interests || "",
       birthday: userData.birthday || "",

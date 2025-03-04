@@ -29,7 +29,7 @@ router.post("/profile/create", async (req, res) => {
       datingPreferences: {
         maxDistance: 5,
         ageRange: [18, 30],
-        photoRangeIndex: [1, 2],
+        photoRangeIndex: [1, 4],
       },
       reactions: {
         peopleYouLike: {},

@@ -11,16 +11,37 @@ router.post("/get_users/get", async (req, res) => {
   }
 
   try {
+    const userDoc = await admin.firestore().collection("users").doc(uid).get();
+
+    if (!userDoc.exists) {
+      return res.status(404).json({error: "User not found."});
+    }
+
+    const userData = userDoc.data();
+    const userPreference = userData.preference;
+
+    if (!userPreference) {
+      return res.status(400).json({error: "User preference not found."});
+    }
+
     const usersSnapshot = await admin.firestore().collection("users").get();
 
-    const users = usersSnapshot.docs
+    let filteredUsers = usersSnapshot.docs
         .map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }))
         .filter((user) => user.id !== uid);
 
-    res.status(200).json(users);
+    if (userPreference !== "everyone") {
+      filteredUsers = filteredUsers.filter(
+          (user) => user.preference !== userPreference,
+      );
+    }
+
+    filteredUsers = filteredUsers.slice(0, 10);
+
+    res.status(200).json(filteredUsers);
   } catch (error) {
     console.error("Error fetching users:", error);
     res.status(500).json({error: "Failed to fetch users"});
