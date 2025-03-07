@@ -15,6 +15,7 @@ const getUsers = require("./get_users");
 const privacySettings = require("./user/privacy_settings");
 const datingPreferences = require("./profile/dating_preferences");
 const reactions = require("./profile/reactions");
+const blockUnblock = require("./user/block_unblock");
 
 const app = express();
 app.use(express.json());
@@ -45,6 +46,10 @@ app.post("/get_users/get", getUsers.getUsers);
 app.post("/get_users/get-suggestions", getUsers.getSuggestions);
 app.post("/profile/get-name", profile.getName);
 app.post("/profile/create-mock-users", profile.createMockUsers);
+
+// Block and Unblock
+app.post("/user/block_unblock/block", blockUnblock.blockUser);
+app.post("/user/block_unblock/unblock", blockUnblock.unblockUser);
 
 // Photos
 app.post("/profile/photos/get", Photos.getPhotos);

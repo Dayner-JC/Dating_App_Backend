@@ -52,7 +52,7 @@ router.post("/profile/photos/upload", async (req, res) => {
     console.error("Error uploading photos:", error);
     res.status(500).json({
       success: false,
-      error: "Failed to upload photos.",
+      error: "Failed to upload photos." + error,
     });
   }
 });
