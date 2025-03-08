@@ -50,6 +50,7 @@ app.post("/profile/create-mock-users", profile.createMockUsers);
 // Block and Unblock
 app.post("/user/block_unblock/block", blockUnblock.blockUser);
 app.post("/user/block_unblock/unblock", blockUnblock.unblockUser);
+app.post("/user/block_unblock/get", blockUnblock.get);
 
 // Photos
 app.post("/profile/photos/get", Photos.getPhotos);

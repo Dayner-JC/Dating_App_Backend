@@ -14,15 +14,32 @@ router.post("/user/block_unblock/block", async (req, res) => {
   }
 
   try {
-    await admin
-        .firestore()
-        .collection("users")
-        .doc(uid)
-        .update({
-          [`privacySettings.blockedUsers.${targetUid}`]: {
-            time: FieldValue.serverTimestamp(),
-          },
-        });
+    const userRef = admin.firestore().collection("users").doc(uid);
+    const userDoc = await userRef.get();
+
+    if (!userDoc.exists) {
+      return res
+          .status(404)
+          .send({success: false, message: "User not found."});
+    }
+
+    const blockedUsers =
+      (userDoc.data() &&
+        userDoc.data().privacySettings &&
+        userDoc.data().privacySettings.blockedUsers) ||
+      {};
+
+    if (blockedUsers[targetUid]) {
+      return res
+          .status(400)
+          .send({success: false, message: "User is already blocked."});
+    }
+
+    await userRef.update({
+      [`privacySettings.blockedUsers.${targetUid}`]: {
+        time: FieldValue.serverTimestamp(),
+      },
+    });
 
     res
         .status(200)
