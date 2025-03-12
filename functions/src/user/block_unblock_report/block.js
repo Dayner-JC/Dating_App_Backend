@@ -4,7 +4,7 @@ const admin = require("../../utils/firebaseAdmin");
 const {FieldValue} = require("firebase-admin/firestore");
 const router = express.Router();
 
-router.post("/user/block_unblock/block", async (req, res) => {
+router.post("/user/block_unblock_report/block", async (req, res) => {
   const {uid, targetUid} = req.body;
 
   if (!uid || !targetUid) {
