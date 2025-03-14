@@ -16,6 +16,7 @@ const privacySettings = require("./user/privacy_settings");
 const datingPreferences = require("./profile/dating_preferences");
 const reactions = require("./profile/reactions");
 const blockUnblock = require("./user/block_unblock_report");
+const chat = require("./chat");
 
 const app = express();
 app.use(express.json());
@@ -25,6 +26,10 @@ app.use(express.json());
 // app.listen(port, () => {
 //   console.log(`Server listening on port ${port}`);
 // });
+
+// Chat
+app.post("/chat/send-message", chat.send);
+app.post("/chat/get-messages", chat.get);
 
 // Reactions
 app.post("/profile/reactions/like", reactions.like);
